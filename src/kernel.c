@@ -2,11 +2,19 @@
 
 void kmain(){
 	serial_init();
-	putc('H');
-	putc('I');
-	putc('!');
-	putc('\n');
+	printf("========================================\n");
+	printf("Hello from NullOS!\n");
+	printf("========================================\n");
 
-	printf("HELLO WORLD!");
+	while(1){
+		char c = getc();
+		if(c == '\r' || c == '\n'){
+			putc('\n');
+		}
+		else{
+		putc(c);
+
+		}
+	}
 
 }

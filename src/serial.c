@@ -34,3 +34,12 @@ void printf(char *str){
 		str++;
 	}
 }
+
+int is_input_ready(int port){
+	return (inb(port) & 0x01);
+}
+
+char getc(){
+	while(!(is_input_ready(COM1+5)));
+	return inb(COM1);
+}
