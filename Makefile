@@ -15,7 +15,7 @@ SRC     = src
 BUILD   = build
 
 # Files
-OBJECTS = $(BUILD)/boot.o $(BUILD)/kernel.o
+OBJECTS = $(BUILD)/boot.o $(BUILD)/kernel.o  $(BUILD)/io.o   $(BUILD)/serial.o  
 KERNEL  = $(BUILD)/kernel.elf
 
 # Default target
@@ -37,11 +37,11 @@ $(BUILD)/%.o: $(SRC)/%.c
 
 # Run normally
 run: $(KERNEL)
-	qemu-system-i386 -kernel $(KERNEL)
+	qemu-system-i386 -kernel $(KERNEL) -m 64M -serial stdio -display none
 
 # Run with GDB
 run-debug: $(KERNEL)
-	qemu-system-i386 -kernel $(KERNEL) -nographic -s -S
+	qemu-system-i386 -kernel $(KERNEL) -m 64M -serial stdio -display none -nographic -s -S
 
 # Clean
 clean:
