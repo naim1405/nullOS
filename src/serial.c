@@ -18,6 +18,19 @@ void serial_init(void){
 }
 
 
+int is_tranmission_empty(int port){
+	return (inb(port) & 0x20);
+}
+
 void putc(char c){
+	while(!is_tranmission_empty(COM1+5));
 	outb(COM1, c);
+}
+
+void printf(char *str){
+	//TODO:
+	while(*str){
+		putc(*str);
+		str++;
+	}
 }

@@ -5,6 +5,8 @@ void kmain(){
 	putc('H');
 	putc('I');
 	putc('!');
+	putc('\n');
 
+	printf("HELLO WORLD!");
 
 }

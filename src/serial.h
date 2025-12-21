@@ -4,5 +4,6 @@
 
 void serial_init(void);
 void putc(char c);
+void printf(char *str);
 
 #endif // !SERIAL_H
