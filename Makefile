@@ -2,16 +2,20 @@
 AS      = nasm
 LD      = ld
 
+CC		= gcc
+
+
 # Flags
 ASFLAGS = -f elf
 LDFLAGS = -T src/linker.ld -m elf_i386
+CFLAGS  = -g -m32 -ffreestanding -O2 -Wall -Wextra -nostdinc -fno-builtin -fno-stack-protector -I. 
 
 # Paths
 SRC     = src
 BUILD   = build
 
 # Files
-OBJECTS = $(BUILD)/boot.o
+OBJECTS = $(BUILD)/boot.o $(BUILD)/kernel.o
 KERNEL  = $(BUILD)/kernel.elf
 
 # Default target
@@ -25,6 +29,11 @@ $(KERNEL): $(OBJECTS)
 $(BUILD)/%.o: $(SRC)/%.asm
 	@mkdir -p $(BUILD)
 	$(AS) $(ASFLAGS) $< -o $@
+
+# Compile
+$(BUILD)/%.o: $(SRC)/%.c
+	@mkdir -p $(BUILD)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Run normally
 run: $(KERNEL)

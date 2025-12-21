@@ -21,9 +21,11 @@ stack_top:
 
 section .text
 global _start
+extern kmain
 _start:
 mov esp, stack_top
-mov eax, 0x4444
+
+call kmain ; call c kernel code
 
 cli ; disable interrupt
 .hang: hlt
