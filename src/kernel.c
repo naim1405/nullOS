@@ -1,6 +1,9 @@
 #include "serial.h"
+#include "gdt.h"
 
 void kmain(){
+	 setup_gdt();
+
 	serial_init();
 	printf("========================================\n");
 	printf("Hello from NullOS!\n");

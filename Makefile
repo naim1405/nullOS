@@ -15,7 +15,7 @@ SRC     = src
 BUILD   = build
 
 # Files
-OBJECTS = $(BUILD)/boot.o $(BUILD)/kernel.o  $(BUILD)/io.o   $(BUILD)/serial.o  
+OBJECTS = $(BUILD)/boot.o $(BUILD)/kernel.o  $(BUILD)/io.o   $(BUILD)/serial.o   $(BUILD)/gdt_asm.o  $(BUILD)/gdt.o 
 KERNEL  = $(BUILD)/kernel.elf
 
 # Default target

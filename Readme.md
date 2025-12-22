@@ -7,6 +7,7 @@ A minimal operating system built from scratch for learning OS development.
 * [x] Kernel loading
 * [x] Serial text output
 * [x] Basic user input handling
+* [x] Global Description Table
 
 ## Planned 🚀
 
