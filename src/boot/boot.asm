@@ -25,9 +25,9 @@ extern kmain
 _start:
 mov esp, stack_top
 
+cli ; disable interrupt
 call kmain ; call c kernel code
 
-cli ; disable interrupt
 .hang: hlt
 jmp .hang
 .end:
