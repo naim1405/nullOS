@@ -69,7 +69,7 @@ void setup_idt(){
 	idtp.base = (uint32_t)&idt_table;
 	idtp.size = (sizeof(struct idt_entry) * IDT_COUNT) - 1;
 
-	fush_idt((uint32_t) &idtp);
+	flush_idt((uint32_t) &idtp);
 	pic_init();
 }
 
@@ -92,8 +92,6 @@ struct stack_struct{
 } __attribute__((packed));
 
 void interrupt_handler(struct cpu_struct cpu, uint32_t int_num, struct stack_struct stack){
-	printf("Interrupt happened: ");
-	// putc(int_num + 46);
 	send_pic_ack(int_num);
 }
 

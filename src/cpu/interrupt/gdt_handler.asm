@@ -1,7 +1,7 @@
 section .text
 
-global fush_idt
-fush_idt:
+global flush_idt
+flush_idt:
 mov eax, [esp + 4]
 lidt [eax]
 ret

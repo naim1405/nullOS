@@ -1,6 +1,6 @@
 #include "include/kernel/types.h"
 
-void fush_idt(uint32_t idt_addr);
+void flush_idt(uint32_t idt_addr);
 
 void interrupt_handler_0();
 void interrupt_handler_1();

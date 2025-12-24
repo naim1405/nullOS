@@ -33,7 +33,6 @@ void pic_init(){
 }
 
 void send_pic_ack(int int_num){
-	printf("INT CALLED");
 	//32-47
 	if(int_num < 32 || int_num > 47){
 		return;
