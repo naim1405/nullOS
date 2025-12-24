@@ -34,5 +34,7 @@ void interrupt_handler_28();
 void interrupt_handler_29();
 void interrupt_handler_30();
 void interrupt_handler_31();
+void interrupt_handler_32();
+void interrupt_handler_33();
 
 void setup_idt();

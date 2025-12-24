@@ -89,4 +89,7 @@ err_code_interrupt_handler 17
 
 
 
+; pic handlers
+no_err_code_interrupt_handler 32
+no_err_code_interrupt_handler 33
 

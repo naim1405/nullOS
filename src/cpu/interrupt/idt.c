@@ -1,5 +1,6 @@
 #include "include/kernel/types.h"
 #include "idt.h"
+#include "pic.h"
 #include "drivers/serial.h"
 
 #define IDT_COUNT 256
@@ -11,12 +12,19 @@ struct idt_entry{
 	uint16_t offet_high;
 } __attribute__((packed));
 
+struct idt_pointer {
+	uint16_t size;
+	uint32_t base;
+} __attribute__((packed));
+
 
 struct idt_entry idt_table[IDT_COUNT];
+struct idt_pointer idtp;
+
 
 void insert_idt_entry(int idx, uint32_t offset, uint16_t segment, uint16_t flags){
-	idt_table[idx].offset_low = offset & 0x00FF;
-	idt_table[idx].offet_high= (offset >> 16) & 0x00FF;
+	idt_table[idx].offset_low = offset & 0xFFFF;
+	idt_table[idx].offet_high= (offset >> 16) & 0xFFFF;
 	idt_table[idx].segment_selector = segment;
 	idt_table[idx].flags= flags;
 }
@@ -55,8 +63,14 @@ void setup_idt(){
 	insert_idt_entry(29, (uint32_t) &interrupt_handler_29, 0x08, 0x8E00);
 	insert_idt_entry(30, (uint32_t) &interrupt_handler_30, 0x08, 0x8E00);
 	insert_idt_entry(31, (uint32_t) &interrupt_handler_31, 0x08, 0x8E00);
+	insert_idt_entry(32, (uint32_t) &interrupt_handler_32, 0x08, 0x8E00);
+	insert_idt_entry(33, (uint32_t) &interrupt_handler_33, 0x08, 0x8E00);
 
-	fush_idt((uint32_t) idt_table);
+	idtp.base = (uint32_t)&idt_table;
+	idtp.size = (sizeof(struct idt_entry) * IDT_COUNT) - 1;
+
+	fush_idt((uint32_t) &idtp);
+	pic_init();
 }
 
 
@@ -79,6 +93,7 @@ struct stack_struct{
 
 void interrupt_handler(struct cpu_struct cpu, uint32_t int_num, struct stack_struct stack){
 	printf("Interrupt happened: ");
-	putc(int_num + 46);
+	// putc(int_num + 46);
+	send_pic_ack(int_num);
 }
 
