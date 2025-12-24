@@ -1,5 +1,5 @@
-#include "serial.h"
-#include "gdt.h"
+#include "drivers/serial.h"
+#include "cpu/gdt/gdt.h"
 
 void kmain(){
 	 setup_gdt();

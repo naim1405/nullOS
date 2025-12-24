@@ -1,5 +1,5 @@
-#include "gdt.h"
-#include "types.h"
+#include "cpu/gdt/gdt.h"
+#include "kernel/types.h"
 
 struct gdt_entry{
 	uint16_t 	limit_lower;
