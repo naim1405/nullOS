@@ -2,6 +2,7 @@
 #include "idt.h"
 #include "pic.h"
 #include "drivers/serial.h"
+#include "drivers/keyboard.h"
 
 #define IDT_COUNT 256
 
@@ -69,8 +70,7 @@ void setup_idt(){
 	idtp.base = (uint32_t)&idt_table;
 	idtp.size = (sizeof(struct idt_entry) * IDT_COUNT) - 1;
 
-	flush_idt((uint32_t) &idtp);
-	pic_init();
+	flush_idt((uint32_t) &idtp); pic_init();
 }
 
 
@@ -91,7 +91,15 @@ struct stack_struct{
 	uint32_t eflags;
 } __attribute__((packed));
 
+// Common interrupt handler
 void interrupt_handler(struct cpu_struct cpu, uint32_t int_num, struct stack_struct stack){
+	// handle individual interrupt
+	if(int_num == 33){
+		// keyboard interrupt
+		char kb_scan = read_keyboard();
+		putc(kb_scan);
+	}
 	send_pic_ack(int_num);
 }
+
 

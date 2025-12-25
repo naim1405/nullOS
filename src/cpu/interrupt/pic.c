@@ -28,7 +28,7 @@ void pic_init(){
 	outb(PIC2_DATA, 0x01);
 
 	// enable interrupt
-	outb(PIC1_DATA, 0xFC);
+	outb(PIC1_DATA, 0xFD);
 	outb(PIC2_DATA, 0xFF);
 }
 
