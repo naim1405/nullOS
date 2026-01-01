@@ -4,6 +4,8 @@ MBFLAGS equ (MBALIGN | MEMINFO) ; 0b000011
 MAGIC equ 0x1BADB002
 CHECKSUM equ -(MAGIC + MBFLAGS)
 
+KERNEL_OFFSET equ 0xC0000000
+
 
 section .multiboot
 align 4
@@ -32,10 +34,10 @@ section .text
 global _start
 extern kmain
 _start:
-mov esp, stack_top
+mov esp, stack_top - KERNEL_OFFSET
 
 ; set page directory location in cr3
-mov eax, page_directory
+mov eax, page_directory - KERNEL_OFFSET
 mov cr3, eax
 
 
@@ -46,7 +48,7 @@ mov eax, 0
 	mov ebx, eax
 	or ebx, 1
 	or ebx, 2
-	mov [page_table + ecx*4], ebx
+	mov [page_table - KERNEL_OFFSET + ecx*4], ebx
 
 	add eax, 4096
 	add ecx, 1
@@ -55,10 +57,11 @@ mov eax, 0
 
 
 ; map page table to pdt
-mov eax, page_table
+mov eax, page_table - KERNEL_OFFSET
 or eax, 1
 or eax, 2
-mov [page_directory], eax
+mov [page_directory - KERNEL_OFFSET], eax
+mov [page_directory - KERNEL_OFFSET + 768*4], eax
 
 
 
@@ -67,6 +70,15 @@ mov ebx, cr0
 or ebx, 0x80000000
 mov cr0, ebx
 
+; jump to higher half kernel
+lea ebx, [higher_half]
+jmp ebx
+
+
+higher_half:
+mov esp, stack_top
+mov [page_directory - KERNEL_OFFSET], 0
+invlpg [0]
 
 cli ; disable interrupt
 call kmain ; call c kernel code

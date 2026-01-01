@@ -2,25 +2,25 @@ ENTRY(_start)
 
 SECTIONS
 	{
-	. = 1M;
+	. = 0xC0100000;
 
-	.text BLOCK(4K): ALIGN(4K)
+	.text BLOCK(4K): AT(ADDR(.text) - 0xC0000000) ALIGN(4K)
 	{
 		*(.multiboot)
 		*(.text)
 	}
 
-	.rodata BLOCK(4K): ALIGN(4K)
+	.rodata BLOCK(4K): AT(ADDR(.rodata) - 0xC0000000) ALIGN(4K)
 	{
 		*(.rodata)
 	}
 
-	.data BLOCK(4K): ALIGN(4K)
+	.data BLOCK(4K): AT(ADDR(.data) - 0xC0000000)  ALIGN(4K)
 	{
 		*(.data)
 	}
 
-	.bss BLOCK(4K): ALIGN(4K)
+	.bss BLOCK(4K): AT(ADDR(.bss) - 0xC0000000)  ALIGN(4K)
 	{
 		*(.bss)
 	}
