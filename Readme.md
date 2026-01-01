@@ -10,6 +10,8 @@ A minimal operating system built from scratch for learning OS development.
 * [x] Global Description Table
 * [x] Interrupt handling
 * [x] User Input using Interrupt
+* [x] Paging
+* [x] Higher Half Kernel
 
 ## Planned 🚀
 * [ ] Memory management
