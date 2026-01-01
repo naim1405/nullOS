@@ -49,11 +49,11 @@ $(BUILD)/%.o: $(SRC)/%.asm
 
 # Run normally
 run: $(KERNEL)
-	qemu-system-i386 -kernel $(KERNEL) -m 64M -serial stdio -display none
+	qemu-system-i386 -kernel $(KERNEL) -m 64M -serial stdio 
 
 # Run with GDB
 run-debug: $(KERNEL)
-	qemu-system-i386 -kernel $(KERNEL) -m 64M -serial stdio -display none -nographic -s -S
+	qemu-system-i386 -kernel $(KERNEL) -m 64M -serial stdio -nographic -s -S
 
 # Clean build artifacts
 clean:

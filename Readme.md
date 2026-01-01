@@ -8,11 +8,10 @@ A minimal operating system built from scratch for learning OS development.
 * [x] Serial text output
 * [x] Basic user input handling
 * [x] Global Description Table
+* [x] Interrupt handling
+* [x] User Input using Interrupt
 
 ## Planned 🚀
-
-* [ ] Interrupt handling
-* [ ] User Input using Interrupt
 * [ ] Memory management
 * [ ] Process management
 * [ ] Scheduling
